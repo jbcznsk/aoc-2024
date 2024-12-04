@@ -8,8 +8,6 @@ import (
 	// "log"
 	"os"
 	"strings"
-	"math"
-	"sort"
 )
 
 func main() {
@@ -26,7 +24,6 @@ func main() {
 	defer f.Close()
 
 	fileScanner := bufio.NewScanner(f)
-	soma := 0
 	fileScanner.Split(bufio.ScanLines)
 	for fileScanner.Scan() {
 		partes := strings.Fields(fileScanner.Text())
@@ -43,14 +40,25 @@ func main() {
 		v2 = append(v2, n2)
 	}
 
-	sort.Ints(v1)
-	sort.Ints(v2)
+	// sort.Ints(v1)
+	// sort.Ints(v2)
 
-	for i:= 0; i < len(v1); i++ {
-		soma = soma + int(math.Abs(float64(v1[i]) - float64(v2[i])))
+	// for i:= 0; i < len(v1); i++ {
+	// 	soma = soma + int(math.Abs(float64(v1[i]) - float64(v2[i])))
+	// }
+
+	// fmt.Println(soma)
+
+	simil := 0
+	for i := 0; i < len(v1); i++ {
+		cont := 0
+		for j := 0; j < len(v2); j++ {
+			if v1[i] == v2[j] {
+				cont++
+			}
+		}
+		simil = simil + (v1[i] * cont)
 	}
 
-
-
-	fmt.Println(soma)
+	fmt.Println(simil)
 }
